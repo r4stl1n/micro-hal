@@ -37,7 +37,7 @@ The electronics necessary in order to build the hal bot
 The hardware necessary to put it all together
 
 | Name | Amount | Cost | Link |
-|------| ------| ---------------|-----------------|--------------|
+|------| ------| ----------------|--------------|
 | 625ZZ Bearing |  8 | $11 |[Link](https://www.amazon.com/dp/B081YRKRNS)
 | M2x0.4mm Hex Nuts |  84 | $9 |[Link](https://www.amazon.com/dp/B07H3SXSN2)
 | M2x8 Socket Hex Pan |  84 | $9 |[Link](https://www.amazon.com/dp/B01EZPNXZO)
