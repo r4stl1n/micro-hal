@@ -13,6 +13,14 @@ All current code samples, models, and rewrites used for this project will be pos
 Due to the amount of different data involved the project will be stored in various directories. This goes as follows:
 
 
+```bash
+spot-micro-hal
+└── parts                  - Parts Necessary
+    └── 3d-prints          - Directory for the 3d prints
+        ├── freecad        - Original Free Cad Files
+        └── stl            - 3d Printable STL Files
+            └── templates  - Template STLS to modify for different hardware
+```
 
 ## Reference && Community
 
