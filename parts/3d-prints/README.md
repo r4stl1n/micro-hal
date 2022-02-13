@@ -20,7 +20,6 @@ At this time i also suggest using the assembly guide found at: [Original Assembl
 | TTL Counterpiece 				| 1 | - | 1 |  20% |   5g |
 
 ### Shoulder Joints 
-This assembly is compatible with the KDY0523-Spotmicro
 
 | Name | normal copies | mirrored copies | total amount | infill | total weight |
 |------|---------------|-----------------|--------------|--------|--------------|
@@ -29,7 +28,6 @@ This assembly is compatible with the KDY0523-Spotmicro
 | Shoulder Joint Ball Bearing Pin	| 4 | - | 4 |  20% |   4g |
 
 ### Leg
-This assembly is compatible with the KDY0523-Spotmicro
 
 | Name | normal copies | mirrored copies | total amount | infill | total weight |
 |------|---------------|-----------------|--------------|--------|--------------|
