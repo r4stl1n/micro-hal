@@ -8,6 +8,8 @@ If you would like to see the original list you can find that at:  [Original Repo
 At this time i also suggest using the assembly guide found at: [Original Assembly](https://github.com/michaelkubina/SpotMicroESP32/tree/master/assembly)
 
 
+### Chassis
+
 | Name | normal copies | mirrored copies | total amount | infill | total weight |
 |------|---------------|-----------------|--------------|--------|--------------|
 | Inner Shoulder					| 2 | - | 2 |  20% |  32g |
