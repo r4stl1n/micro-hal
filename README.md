@@ -15,11 +15,13 @@ Due to the amount of different data involved the project will be stored in vario
 
 ```bash
 spot-micro-hal
-└── parts                  - Parts Necessary
-    └── 3d-prints          - Directory for the 3d prints
-        ├── freecad        - Original Free Cad Files
-        └── stl            - 3d Printable STL Files
-            └── templates  - Template STLS to modify for different hardware
+├── parts                     - Parts Necessary
+│ └── 3d-prints               - Directory for the 3d prints
+│     ├── freecad             - Original Free Cad Files
+│     └── stl                 - 3d Printable STL Files
+│         └── templates       - Template STLS to modify for different hardware
+└── scripts                   - Utility scripts for various things
+    └── servo-test            - Servo test script for calibration
 ```
 
 ## Reference && Community

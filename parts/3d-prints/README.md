@@ -17,7 +17,7 @@ At this time i also suggest using the assembly guide found at: [Original Assembl
 | Chassis Side						| 2 | - | 2 |  20% |  22g |
 | Top Shoulder						| 2 | - | 2 |  20% |  20g |
 | Bottom Shoulder					| 2 | - | 2 |  20% |  12g |
-| TTL Counterpiece 				| 1 | - | 1 |  20% |   5g |
+| TTL Counterpiece 			    	| 1 | - | 1 |  20% |   5g |
 
 ### Shoulder Joints 
 
@@ -31,14 +31,14 @@ At this time i also suggest using the assembly guide found at: [Original Assembl
 
 | Name | normal copies | mirrored copies | total amount | infill | total weight |
 |------|---------------|-----------------|--------------|--------|--------------|
-| Limb Top Shell					          | 2 | 2 | 4 |  20% |  92g |
+| Limb Top Shell					    | 2 | 2 | 4 |  20% |  92g |
 | Limb Bottom Shell Thumbnail		    | 2 | 2 | 4 |  20% | 100g |
-| Limb Ball Bearing Mount **long**	| 2 | 2 | 4 |  20% |  20g |
-| Limb Servohorn Mount **long**		  | 2 | 2 | 4 |  20% |  20g |
-| Wrist							                | 2 | 2 | 4 |  20% | 104g |
-| Wrist Counterpiece					      | 2 | 2 | 4 |  20% |  36g |
-| Shoulder Joint Ball Bearing Pin	  | 4 | - | 4 |  20% |   4g |
-| Foot Tip							            | 4 | - | 4 |  20% |  24g |
+| Limb Ball Bearing Mount **long**	    | 2 | 2 | 4 |  20% |  20g |
+| Limb Servohorn Mount **long**		    | 2 | 2 | 4 |  20% |  20g |
+| Wrist							        | 2 | 2 | 4 |  20% | 104g |
+| Wrist Counterpiece					| 2 | 2 | 4 |  20% |  36g |
+| Shoulder Joint Ball Bearing Pin	    | 4 | - | 4 |  20% |   4g |
+| Foot Tip							    | 4 | - | 4 |  20% |  24g |
 
 ### Hull
 
@@ -46,16 +46,16 @@ At this time i also suggest using the assembly guide found at: [Original Assembl
 |------|---------------|-----------------|--------------|--------|--------------|
 | Front Cover Optimized				            | 1 | - | 1 | 100% |  58g |
 | Sensormount 				                    | 1 | - | 1 |  20% |  17g |
-| Cameramount 			                      | 1 | - | 1 |  20% |  15g |
-| Rear Cover Shell Longer Version					| 1 | - | 1 | 100% |  40g |
-| Rear Cover Plate									      | 1 | - | 1 | 100% |  20g |
+| Cameramount 			                        | 1 | - | 1 |  20% |  15g |
+| Rear Cover Shell Longer Version				| 1 | - | 1 | 100% |  40g |
+| Rear Cover Plate						        | 1 | - | 1 | 100% |  20g |
 | Top Cover Split Front				            | 1 | - | 1 | 100% |  48g |
-| Top Cover Split Rear with OLED	        | 1 | - | 1 | 100% |  28g |
-| Bottom Cover Split Front			          | 1 | - | 1 | 100% |  46g |
+| Top Cover Split Rear with OLED	            | 1 | - | 1 | 100% |  28g |
+| Bottom Cover Split Front			            | 1 | - | 1 | 100% |  46g |
 | Bottom Cover Split Rear			            | 1 | - | 1 | 100% |  26g |
 
 ### Miscellanious
 
 | Name | normal copies | mirrored copies | total amount | infill | total weight |
 |------|---------------|-----------------|--------------|--------|--------------|
-|  Servohorn 6 B-Star				| 12 | - | 12 |  20% |  20g |
+| Servohorn 6 B-Star				| 12 | - | 12 |  20% |  20g |
