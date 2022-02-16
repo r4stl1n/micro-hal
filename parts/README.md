@@ -12,7 +12,7 @@ If you are looking for the 3d Printed Parts just navigate to the 3d-prints folde
 
 While the spot micro bots are "affordable" compared to the real spot bot they are still costly. With just whats listed here the total is the following.
 
-Total: **$443**
+Total: **$447**
 
 This does not include filament, wires, or anything else.
 
@@ -22,7 +22,7 @@ The electronics necessary in order to build the hal bot
 
 | Name |Usage | Amount | Cost | Link |
 |------| ------| ---------------|-----------------|--------------|
-| Raspberry Pi 4 B 8GB                  | Processing                | 1  | $75 | [Link](https://www.amazon.com/dp/B0899VXM8F) |
+| Raspberry Pi 4 B 8GB                  | Processing                | 1  | $55 | [Link](https://www.adafruit.com/product/4296) |
 | 19m 12V Push Button                   | On/Off Button             | 1  | $17 | [Link](https://www.amazon.com/dp/B08225LGRT) | 
 | 200W 15A DC-DC Power Supply           | Voltage Regulator (Servo) | 1  | $15 | [Link](https://www.amazon.com/dp/B072BN43P8) | 
 | DS3218MG 20KG Digital Servo High      | Leg Movement              | 12 | $204| [Link](https://www.amazon.com/dp/B076CNKQX4) |
