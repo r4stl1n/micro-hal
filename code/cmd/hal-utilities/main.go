@@ -13,8 +13,7 @@ func init() {
 		FullTimestamp: true,
 	})
 
-	logrus.SetReportCaller(true)
-	logrus.SetLevel(logrus.DebugLevel)
+	logrus.SetLevel(logrus.InfoLevel)
 }
 
 func main() {

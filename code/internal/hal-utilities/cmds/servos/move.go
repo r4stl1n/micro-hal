@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	servo "github.com/r4stl1n/micro-hal/code/pkg/components"
+	components "github.com/r4stl1n/micro-hal/code/pkg/components"
 	pca9685 "github.com/r4stl1n/micro-hal/code/pkg/drivers"
 	i2c "github.com/r4stl1n/micro-hal/code/pkg/drivers/base"
 )
@@ -95,7 +95,7 @@ func (cmd *Move) Run(_ *cobra.Command, args []string) {
 	pca0.SetChannel(servoId, 0, 0)
 
 	// Create a new servo component
-	servo := new(servo.Servo).New(pca0, servoId, &servo.ServoOptions{
+	servo := new(components.Servo).New(pca0, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
