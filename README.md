@@ -1,4 +1,4 @@
-# Spot Micro - Hal Edition
+# Micro Hal - Spot Micro bot Variation
 
 This take on the spot-micro attempts to pull pieces together from various different spot projects into one complete package.
 
@@ -8,20 +8,24 @@ Each project that pieces are taken from will be documented in this README so any
 
 All current code samples, models, and rewrites used for this project will be posted within this repo.
 
+Note: This is a in-progress working spot micro bot written in GO
+
 ## Project Structure
 
 Due to the amount of different data involved the project will be stored in various directories. This goes as follows:
 
-
 ```bash
-spot-micro-hal
-├── parts                     - Parts Necessary
-│ └── 3d-prints               - Directory for the 3d prints
-│     ├── freecad             - Original Free Cad Files
-│     └── stl                 - 3d Printable STL Files
-│         └── templates       - Template STLS to modify for different hardware
-└── scripts                   - Utility scripts for various things
-    └── servo-test            - Servo test script for calibration
+micro-hal
+├── code                       - Code repository for working with micro hal
+│   ├── cmd                    - Micro hal Applications
+│   │    └── hal-utilities     - Utility Application
+|   |
+└── parts                      - Parts Necessary
+    └── 3d-prints              - Directory for the 3d prints
+        ├── freecad            - Original Free Cad Files
+        └── stl                - 3d Printable STL Files
+            └── templates      - Template STLS to modify for different hardware
+
 ```
 
 ## Reference && Community
