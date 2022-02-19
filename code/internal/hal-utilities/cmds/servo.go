@@ -24,6 +24,7 @@ func (cmd *Servo) Command() *cobra.Command {
 
 	command.AddCommand(new(servos.Move).Init().Command())
 	command.AddCommand(new(servos.Calibrate).Init().Command())
+	command.AddCommand(new(servos.CreateMap).Init().Command())
 
 	return command
 }

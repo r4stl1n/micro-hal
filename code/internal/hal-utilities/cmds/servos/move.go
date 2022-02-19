@@ -85,17 +85,17 @@ func (cmd *Move) Run(_ *cobra.Command, args []string) {
 
 	// Next we create the needed driver to connect to the pca9685
 	logrus.Info("Creating new connection to pca9685")
-	pca0, err := pca9685.New(i2c, nil)
+	pca, err := pca9685.New(i2c, nil)
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
 	// Set a single pwm channel
 	// Setup channel, min, max
-	pca0.SetChannel(servoId, 0, 0)
+	pca.SetChannel(servoId, 0, 0)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca0, servoId, &components.ServoOptions{
+	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,

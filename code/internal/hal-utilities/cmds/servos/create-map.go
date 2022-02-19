@@ -2,7 +2,9 @@ package servos
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -13,66 +15,61 @@ import (
 	components "github.com/r4stl1n/micro-hal/code/pkg/components"
 	pca9685 "github.com/r4stl1n/micro-hal/code/pkg/drivers"
 	i2c "github.com/r4stl1n/micro-hal/code/pkg/drivers/base"
+	"github.com/r4stl1n/micro-hal/code/pkg/structs"
 )
 
-type Calibrate struct {
+type CreateMap struct {
 }
 
-func (cmd *Calibrate) Init() *Calibrate {
-	*cmd = Calibrate{}
+func (cmd *CreateMap) Init() *CreateMap {
+	*cmd = CreateMap{}
 
 	return cmd
 }
 
-func (cmd *Calibrate) Command() *cobra.Command {
+func (cmd *CreateMap) Command() *cobra.Command {
 	return &cobra.Command{
-		Use:                   "calibrate",
-		Aliases:               []string{"c"},
+		Use:                   "createMap",
+		Aliases:               []string{"cm"},
 		Args:                  cobra.ExactArgs(6),
-		ArgAliases:            []string{"i2c-address", "servo_id", "actuationRange", "min_impusle", "max_impulse", "step"},
+		ArgAliases:            []string{"i2c-address", "servoCount", "min_impusle", "max_impulse", "step", "outputFile"},
 		DisableFlagsInUseLine: true,
-		Short:                 "calibrate servo",
+		Short:                 "guided servo calibration map creation",
 		Run:                   cmd.Run,
 	}
 }
 
-func (cmd *Calibrate) getConveretedValues(args []string) (int, int, float32, float32, float32, error) {
+func (cmd *CreateMap) getConveretedValues(args []string) (int, float32, float32, float32, error) {
 	// Need to covert our current arguments into values
-	servoId, err := strconv.Atoi(args[1])
+	servoCount, err := strconv.Atoi(args[1])
 
 	if err != nil {
-		return 0, 0, 0.0, 0.0, 0, err
+		return 0, 0.0, 0.0, 0, err
 	}
 
-	actuationRange, err := strconv.Atoi(args[2])
+	minImpulse, err := strconv.ParseFloat(args[2], 32)
 
 	if err != nil {
-		return 0, 0, 0.0, 0.0, 0, err
+		return 0, 0.0, 0.0, 0, err
 	}
 
-	minImpulse, err := strconv.ParseFloat(args[3], 32)
+	maxImpulse, err := strconv.ParseFloat(args[3], 32)
 
 	if err != nil {
-		return 0, 0, 0.0, 0.0, 0, err
+		return 0, 0.0, 0.0, 0, err
 	}
 
-	maxImpulse, err := strconv.ParseFloat(args[4], 32)
+	step, err := strconv.ParseFloat(args[4], 32)
 
 	if err != nil {
-		return 0, 0, 0.0, 0.0, 0, err
+		return 0, 0.0, 0.0, 0, err
 	}
 
-	step, err := strconv.ParseFloat(args[5], 32)
-
-	if err != nil {
-		return 0, 0, 0.0, 0.0, 0, err
-	}
-
-	return servoId, actuationRange, float32(minImpulse), float32(maxImpulse), float32(step), nil
+	return servoCount, float32(minImpulse), float32(maxImpulse), float32(step), nil
 
 }
 
-func (cmd *Calibrate) minImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
+func (cmd *CreateMap) minImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
 
 	logrus.Infof("Starting test for minImpulse level starting at: %f", minImpulse)
 
@@ -131,7 +128,7 @@ func (cmd *Calibrate) minImpulseCalibrate(pca *pca9685.PCA9685, servoId int, act
 
 }
 
-func (cmd *Calibrate) maxImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
+func (cmd *CreateMap) maxImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
 
 	logrus.Infof("Starting test for maxImpulse level starting at: %f", maxImpulse)
 
@@ -190,9 +187,24 @@ func (cmd *Calibrate) maxImpulseCalibrate(pca *pca9685.PCA9685, servoId int, act
 
 }
 
-func (cmd *Calibrate) Run(_ *cobra.Command, args []string) {
+func (cmd *CreateMap) moveToDefault(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, angle int) {
 
-	servoId, actuationRange, minImpulse, maxImpulse, step, err := cmd.getConveretedValues(args)
+	logrus.Infof("Moving servo %d to default position %d", servoId, angle)
+
+	// Create a new servo component
+	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+		ActuationRange: actuationRange,
+		MinPulse:       minImpulse,
+		MaxPulse:       maxImpulse,
+	})
+
+	// Move the servo to a specific angle
+	servo.Angle(angle)
+}
+
+func (cmd *CreateMap) Run(_ *cobra.Command, args []string) {
+
+	servoCount, minImpulse, maxImpulse, step, err := cmd.getConveretedValues(args)
 
 	if err != nil {
 		logrus.Fatal(err)
@@ -212,14 +224,62 @@ func (cmd *Calibrate) Run(_ *cobra.Command, args []string) {
 		logrus.Fatal(err)
 	}
 
-	// Set a single pwm channel
-	// Setup channel, min, max
-	pca.SetChannel(servoId, 0, 0)
+	servoMap := structs.ServoCalibrationMap{}
 
-	newMinImpulse := cmd.minImpulseCalibrate(pca, servoId, actuationRange, minImpulse, maxImpulse, step)
+	for i := 1; i != servoCount+1; i++ {
 
-	newMaxImpulse := cmd.maxImpulseCalibrate(pca, servoId, actuationRange, newMinImpulse, maxImpulse, step)
+		servoId := i - 1
 
-	logrus.Infof("Min impulse is: %f, Max Impulse is: %f", newMinImpulse, newMaxImpulse)
+		// Set a single pwm channel
+		// Setup channel, min, max
+		pca.SetChannel(servoId, 0, 0)
+
+		logrus.Infof("Starting to tune servo in pin: %d", servoId)
+
+		servoAlias := ""
+		fmt.Print("Please enter an alias for the servo: ")
+		fmt.Scanf("%s", &servoAlias)
+
+		actuationRange := 180
+		fmt.Print("Please enter the max actuation for the servo:")
+		fmt.Scanf("%d", &actuationRange)
+
+		defaultPosition := 90
+		fmt.Print("Please enter the default position for the servo:")
+		fmt.Scanf("%d", &defaultPosition)
+
+		newMinImpulse := cmd.minImpulseCalibrate(pca, servoId, actuationRange, minImpulse, maxImpulse, step)
+
+		newMaxImpulse := cmd.maxImpulseCalibrate(pca, servoId, actuationRange, newMinImpulse, maxImpulse, step)
+
+		logrus.Infof("Min impulse is: %f, Max Impulse is: %f", newMinImpulse, newMaxImpulse)
+
+		servoMap.Servos = append(servoMap.Servos, structs.ServoCalibrationItem{
+			Alias:           servoAlias,
+			PinId:           servoId,
+			ActuationRange:  actuationRange,
+			MinPulse:        newMinImpulse,
+			MaxPulse:        newMaxImpulse,
+			DefaultPosition: defaultPosition,
+		})
+
+		cmd.moveToDefault(pca, servoId, actuationRange, newMinImpulse, newMaxImpulse, defaultPosition)
+	}
+
+	marshaled, err := json.MarshalIndent(servoMap, "", " ")
+
+	if err != nil {
+		logrus.Fatal("Failed to create servo map from data: %s", err)
+	}
+
+	fmt.Println(string(marshaled))
+
+	err = ioutil.WriteFile(args[5], marshaled, 0644)
+
+	if err != nil {
+		logrus.Fatal("Could not write file: %s", err.Error())
+	}
+
+	logrus.Infof("Servo map saved to: %s", args[5])
 
 }
