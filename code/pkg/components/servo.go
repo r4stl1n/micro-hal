@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	pca9685 "github.com/r4stl1n/micro-hal/code/pkg/drivers"
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -60,6 +61,7 @@ func (servo *Servo) Fraction(fraction float32) (err error) {
 	dutyRange := maxDuty - minDuty
 	dutyCycle := (int(minDuty+fraction*dutyRange) + 1) >> 4
 
+	logrus.Info(dutyCycle)
 	return servo.pca.SetChannel(int(servo.channel), 0, dutyCycle)
 }
 

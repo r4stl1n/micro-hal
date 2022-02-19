@@ -212,10 +212,6 @@ func (cmd *Calibrate) Run(_ *cobra.Command, args []string) {
 		logrus.Fatal(err)
 	}
 
-	// Set a single pwm channel
-	// Setup channel, min, max
-	pca.SetChannel(servoId, 0, 0)
-
 	newMinImpulse := cmd.minImpulseCalibrate(pca, servoId, actuationRange, minImpulse, maxImpulse, step)
 
 	newMaxImpulse := cmd.maxImpulseCalibrate(pca, servoId, actuationRange, newMinImpulse, maxImpulse, step)

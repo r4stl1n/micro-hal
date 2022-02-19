@@ -90,10 +90,6 @@ func (cmd *Move) Run(_ *cobra.Command, args []string) {
 		logrus.Fatal(err)
 	}
 
-	// Set a single pwm channel
-	// Setup channel, min, max
-	pca.SetChannel(servoId, 0, 0)
-
 	// Create a new servo component
 	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
@@ -105,4 +101,5 @@ func (cmd *Move) Run(_ *cobra.Command, args []string) {
 
 	// Move the servo to a specific angle
 	servo.Angle(angle)
+
 }

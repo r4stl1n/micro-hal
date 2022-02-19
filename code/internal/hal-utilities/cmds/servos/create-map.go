@@ -230,10 +230,6 @@ func (cmd *CreateMap) Run(_ *cobra.Command, args []string) {
 
 		servoId := i - 1
 
-		// Set a single pwm channel
-		// Setup channel, min, max
-		pca.SetChannel(servoId, 0, 0)
-
 		logrus.Infof("Starting to tune servo in pin: %d", servoId)
 
 		servoAlias := ""
