@@ -1,7 +1,7 @@
 package cmds
 
 import (
-	"github.com/r4stl1n/micro-hal/code/internal/hal-utilities/cmds/servos"
+	servos "github.com/r4stl1n/micro-hal/code/internal/hal-utilities/cmds/servo"
 	"github.com/spf13/cobra"
 )
 
