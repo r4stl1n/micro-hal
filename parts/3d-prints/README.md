@@ -1,6 +1,8 @@
 # 3D Printed Parts
 These are the 3d printed parts you will need in order to construct the spot-micro-hal bot.  This is a condensed table list excluding pictures to allow for a easy print of the page to check mark things as you move forward. 
 
+Any files that Have been personally modified cad files will be inside the fusion-files directory
+
 Note: Since this project does not use the esp32 we have omitted the esp32 specific parts and replaced them with custom or the none esp32 parts.
 
 If you would like to see the original list you can find that at:  [Original Repo](https://github.com/michaelkubina/SpotMicroESP32)
@@ -18,6 +20,7 @@ At this time i also suggest using the assembly guide found at: [Original Assembl
 | Top Shoulder						| 2 | - | 2 |  20% |  20g |
 | Bottom Shoulder					| 2 | - | 2 |  20% |  12g |
 | TTL Counterpiece 			    	| 1 | - | 1 |  20% |   5g |
+| Circuitry Mounting Plate 		   	| 1 | - | 1 |  20% |  77g |
 
 ### Shoulder Joints 
 
