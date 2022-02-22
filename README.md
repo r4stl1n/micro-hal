@@ -19,12 +19,21 @@ micro-hal
 ├── code                       - Code repository for working with micro hal
 │   ├── cmd                    - Micro hal Applications
 │   │    └── hal-utilities     - Utility Application
-|   |
-└── parts                      - Parts Necessary
-    └── 3d-prints              - Directory for the 3d prints
-        ├── freecad            - Original Free Cad Files
-        └── stl                - 3d Printable STL Files
-            └── templates      - Template STLS to modify for different hardware
+│   │
+├── parts                      - Parts Necessary
+│    └── 3d-prints             
+│       ├── freecad            - Original Free Cad Files
+│       └── stl                - 3d Printable STL Files
+│           └── templates      - Template STLS to modify for different hardware
+│
+└── sim                        - Sim folder containing everything required to run in gazebo
+    ├── meshes                 
+    │   └── stl                - STL files used to render the bot in gazebo
+    ├── plugin                 - Gazebo plugin source directory
+    │   └── include
+    ├── urdf                   - The urdf and xacro file for the micro-hal bot
+    └── world                  - Folder containing the world defenition file for gazebo
+
 
 ```
 
