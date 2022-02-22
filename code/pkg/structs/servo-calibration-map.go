@@ -12,5 +12,6 @@ type ServoCalibrationItem struct {
 
 // Map of servo calibration information
 type ServoCalibrationMap struct {
+	Name   string
 	Servos []ServoCalibrationItem
 }

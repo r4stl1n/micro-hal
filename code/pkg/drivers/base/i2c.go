@@ -12,8 +12,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Options represents a connection to I2C-device.
-type Options struct {
+// I2C represents a connection to I2C-device.
+type I2C struct {
 	addr uint8
 	dev  string
 	rc   *os.File
@@ -26,8 +26,9 @@ const DEFAULT_I2C_ADDRESS = 0x0703
 // supported as well: you should preliminary specify
 // register address to read from, either write register
 // together with the data in case of write operations.
-func New(addr uint8, dev string, i2cAddress uintptr) (*Options, error) {
-	i2c := &Options{
+func (i2c *I2C) Init(addr uint8, dev string, i2cAddress uintptr) (*I2C, error) {
+
+	i2c = &I2C{
 		addr: addr,
 		dev:  "/dev/i2c-0",
 	}
@@ -40,7 +41,7 @@ func New(addr uint8, dev string, i2cAddress uintptr) (*Options, error) {
 	if err != nil {
 		return i2c, err
 	}
-	if err := ioctl(f.Fd(), i2cAddress, uintptr(addr)); err != nil {
+	if err := i2c.ioctl(f.Fd(), i2cAddress, uintptr(addr)); err != nil {
 		return i2c, err
 	}
 
@@ -49,21 +50,21 @@ func New(addr uint8, dev string, i2cAddress uintptr) (*Options, error) {
 }
 
 // GetAddr return device occupied address in the bus.
-func (o *Options) GetAddr() uint8 {
-	return o.addr
+func (i2c *I2C) GetAddr() uint8 {
+	return i2c.addr
 }
 
 // GetDev return full device name.
-func (o *Options) GetDev() string {
-	return o.dev
+func (i2c *I2C) GetDev() string {
+	return i2c.dev
 }
 
 // READ SECTION
 
 // ReadBytes read bytes from I2C-device.
 // Number of bytes read correspond to buf parameter length.
-func (o *Options) ReadBytes(buf []byte) (int, error) {
-	n, err := o.rc.Read(buf)
+func (i2c *I2C) ReadBytes(buf []byte) (int, error) {
+	n, err := i2c.rc.Read(buf)
 	if err != nil {
 		return n, err
 	}
@@ -73,13 +74,13 @@ func (o *Options) ReadBytes(buf []byte) (int, error) {
 
 // ReadRegBytes read count of n byte's sequence from I2C-device
 // starting from reg address.
-func (o *Options) ReadRegBytes(reg byte, n int) ([]byte, int, error) {
+func (i2c *I2C) ReadRegBytes(reg byte, n int) ([]byte, int, error) {
 	logrus.Debugf("Read %d bytes starting from reg 0x%0X...", n, reg)
-	if _, err := o.WriteBytes([]byte{reg}); err != nil {
+	if _, err := i2c.WriteBytes([]byte{reg}); err != nil {
 		return nil, 0, err
 	}
 	buf := make([]byte, n)
-	c, err := o.ReadBytes(buf)
+	c, err := i2c.ReadBytes(buf)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -87,12 +88,12 @@ func (o *Options) ReadRegBytes(reg byte, n int) ([]byte, int, error) {
 }
 
 // ReadRegU8 reads byte from I2C-device register specified in reg.
-func (o *Options) ReadRegU8(reg byte) (byte, error) {
-	if _, err := o.WriteBytes([]byte{reg}); err != nil {
+func (i2c *I2C) ReadRegU8(reg byte) (byte, error) {
+	if _, err := i2c.WriteBytes([]byte{reg}); err != nil {
 		return 0, err
 	}
 	buf := make([]byte, 1)
-	if _, err := o.ReadBytes(buf); err != nil {
+	if _, err := i2c.ReadBytes(buf); err != nil {
 		return 0, err
 	}
 	logrus.Debugf("Read U8 %d from reg 0x%0X", buf[0], reg)
@@ -101,12 +102,12 @@ func (o *Options) ReadRegU8(reg byte) (byte, error) {
 
 // ReadRegU16BE reads unsigned big endian word (16 bits)
 // from I2C-device starting from address specified in reg.
-func (o *Options) ReadRegU16BE(reg byte) (uint16, error) {
-	if _, err := o.WriteBytes([]byte{reg}); err != nil {
+func (i2c *I2C) ReadRegU16BE(reg byte) (uint16, error) {
+	if _, err := i2c.WriteBytes([]byte{reg}); err != nil {
 		return 0, err
 	}
 	buf := make([]byte, 2)
-	if _, err := o.ReadBytes(buf); err != nil {
+	if _, err := i2c.ReadBytes(buf); err != nil {
 		return 0, err
 	}
 	w := uint16(buf[0])<<8 + uint16(buf[1])
@@ -116,8 +117,8 @@ func (o *Options) ReadRegU16BE(reg byte) (uint16, error) {
 
 // ReadRegU16LE reads unsigned little endian word (16 bits)
 // from I2C-device starting from address specified in reg.
-func (o *Options) ReadRegU16LE(reg byte) (uint16, error) {
-	w, err := o.ReadRegU16BE(reg)
+func (i2c *I2C) ReadRegU16LE(reg byte) (uint16, error) {
+	w, err := i2c.ReadRegU16BE(reg)
 	if err != nil {
 		return 0, err
 	}
@@ -128,12 +129,12 @@ func (o *Options) ReadRegU16LE(reg byte) (uint16, error) {
 
 // ReadRegS16BE reads signed big endian word (16 bits)
 // from I2C-device starting from address specified in reg.
-func (o *Options) ReadRegS16BE(reg byte) (int16, error) {
-	if _, err := o.WriteBytes([]byte{reg}); err != nil {
+func (i2c *I2C) ReadRegS16BE(reg byte) (int16, error) {
+	if _, err := i2c.WriteBytes([]byte{reg}); err != nil {
 		return 0, err
 	}
 	buf := make([]byte, 2)
-	if _, err := o.ReadBytes(buf); err != nil {
+	if _, err := i2c.ReadBytes(buf); err != nil {
 		return 0, err
 	}
 	w := int16(buf[0])<<8 + int16(buf[1])
@@ -143,8 +144,8 @@ func (o *Options) ReadRegS16BE(reg byte) (int16, error) {
 
 // ReadRegS16LE reads signed little endian word (16 bits)
 // from I2C-device starting from address specified in reg.
-func (o *Options) ReadRegS16LE(reg byte) (int16, error) {
-	w, err := o.ReadRegS16BE(reg)
+func (i2c *I2C) ReadRegS16LE(reg byte) (int16, error) {
+	w, err := i2c.ReadRegS16BE(reg)
 	if err != nil {
 		return 0, err
 	}
@@ -157,15 +158,15 @@ func (o *Options) ReadRegS16LE(reg byte) (int16, error) {
 
 // WriteBytes send bytes to the remote I2C-device. The interpretation of
 // the message is implementation-dependent.
-func (o *Options) WriteBytes(buf []byte) (int, error) {
+func (i2c *I2C) WriteBytes(buf []byte) (int, error) {
 	logrus.Debugf("Write %d hex bytes: [%+v]", len(buf), hex.EncodeToString(buf))
-	return o.rc.Write(buf)
+	return i2c.rc.Write(buf)
 }
 
 // WriteRegU8 writes byte to I2C-device register specified in reg.
-func (o *Options) WriteRegU8(reg byte, value byte) error {
+func (i2c *I2C) WriteRegU8(reg byte, value byte) error {
 	buf := []byte{reg, value}
-	if _, err := o.WriteBytes(buf); err != nil {
+	if _, err := i2c.WriteBytes(buf); err != nil {
 		return err
 	}
 	logrus.Debugf("Write U8 %d to reg 0x%0X", value, reg)
@@ -174,9 +175,9 @@ func (o *Options) WriteRegU8(reg byte, value byte) error {
 
 // WriteRegU16BE writes unsigned big endian word (16 bits)
 // value to I2C-device starting from address specified in reg.
-func (o *Options) WriteRegU16BE(reg byte, value uint16) error {
+func (i2c *I2C) WriteRegU16BE(reg byte, value uint16) error {
 	buf := []byte{reg, byte((value & 0xFF00) >> 8), byte(value & 0xFF)}
-	if _, err := o.WriteBytes(buf); err != nil {
+	if _, err := i2c.WriteBytes(buf); err != nil {
 		return err
 	}
 	logrus.Debugf("Write U16 %d to reg 0x%0X", value, reg)
@@ -185,16 +186,16 @@ func (o *Options) WriteRegU16BE(reg byte, value uint16) error {
 
 // WriteRegU16LE writes unsigned little endian word (16 bits)
 // value to I2C-device starting from address specified in reg.
-func (o *Options) WriteRegU16LE(reg byte, value uint16) error {
+func (i2c *I2C) WriteRegU16LE(reg byte, value uint16) error {
 	w := (value*0xFF00)>>8 + value<<8
-	return o.WriteRegU16BE(reg, w)
+	return i2c.WriteRegU16BE(reg, w)
 }
 
 // WriteRegS16BE writes signed big endian word (16 bits)
 // value to I2C-device starting from address specified in reg.
-func (o *Options) WriteRegS16BE(reg byte, value int16) error {
+func (i2c *I2C) WriteRegS16BE(reg byte, value int16) error {
 	buf := []byte{reg, byte((uint16(value) & 0xFF00) >> 8), byte(value & 0xFF)}
-	if _, err := o.WriteBytes(buf); err != nil {
+	if _, err := i2c.WriteBytes(buf); err != nil {
 		return err
 	}
 	logrus.Debugf("Write S16 %d to reg 0x%0X", value, reg)
@@ -203,16 +204,16 @@ func (o *Options) WriteRegS16BE(reg byte, value int16) error {
 
 // WriteRegS16LE writes signed little endian word (16 bits)
 // value to I2C-device starting from address specified in reg.
-func (o *Options) WriteRegS16LE(reg byte, value int16) error {
+func (i2c *I2C) WriteRegS16LE(reg byte, value int16) error {
 	w := int16((uint16(value)*0xFF00)>>8) + value<<8
-	return o.WriteRegS16BE(reg, w)
+	return i2c.WriteRegS16BE(reg, w)
 }
 
 // WriteRegU24BE writes unsigned big endian word (24 bits)
 // value to I2C-device starting from address specified in reg.
-func (v *Options) WriteRegU24BE(reg byte, value uint32) error {
+func (i2c *I2C) WriteRegU24BE(reg byte, value uint32) error {
 	buf := []byte{reg, byte(value >> 16 & 0xFF), byte(value >> 8 & 0xFF), byte(value & 0xFF)}
-	if _, err := v.WriteBytes(buf); err != nil {
+	if _, err := i2c.WriteBytes(buf); err != nil {
 		return err
 	}
 	logrus.Debugf("Write U24 %d to reg 0x%0X", value, reg)
@@ -221,9 +222,9 @@ func (v *Options) WriteRegU24BE(reg byte, value uint32) error {
 
 // WriteRegU32BE writes unsigned big endian word (32 bits)
 // value to I2C-device starting from address specified in reg.
-func (v *Options) WriteRegU32BE(reg byte, value uint32) error {
+func (i2c *I2C) WriteRegU32BE(reg byte, value uint32) error {
 	buf := []byte{reg, byte(value >> 24 & 0xFF), byte(value >> 16 & 0xFF), byte(value >> 8 & 0xFF), byte(value & 0xFF)}
-	if _, err := v.WriteBytes(buf); err != nil {
+	if _, err := i2c.WriteBytes(buf); err != nil {
 		return err
 	}
 	logrus.Debugf("Write U32 %d to reg 0x%0X", value, reg)
@@ -231,11 +232,11 @@ func (v *Options) WriteRegU32BE(reg byte, value uint32) error {
 }
 
 // Close I2C-connection.
-func (o *Options) Close() error {
-	return o.rc.Close()
+func (i2c *I2C) Close() error {
+	return i2c.rc.Close()
 }
 
-func ioctl(fd, cmd, arg uintptr) error {
+func (i2c *I2C) ioctl(fd, cmd, arg uintptr) error {
 	if _, _, err := syscall.Syscall6(syscall.SYS_IOCTL, fd, cmd, arg, 0, 0, 0); err != 0 {
 		return err
 	}

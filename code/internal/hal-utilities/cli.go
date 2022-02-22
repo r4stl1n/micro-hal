@@ -57,7 +57,7 @@ func (c *CLI) Init() *CLI {
 	c.rootCommand.PersistentFlags().BoolVarP(&c.isInteractive, "interactive", "i", false, "interactive mode")
 
 	c.rootCommand.AddCommand(new(cmds.Servo).Init().Command())
-
+	c.rootCommand.AddCommand(new(cmds.Utils).Init().Command())
 	return c
 }
 

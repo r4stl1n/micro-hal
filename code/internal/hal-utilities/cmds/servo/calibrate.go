@@ -11,8 +11,8 @@ import (
 	"github.com/spf13/cobra"
 
 	components "github.com/r4stl1n/micro-hal/code/pkg/components"
-	pca9685 "github.com/r4stl1n/micro-hal/code/pkg/drivers"
-	i2c "github.com/r4stl1n/micro-hal/code/pkg/drivers/base"
+	drivers "github.com/r4stl1n/micro-hal/code/pkg/drivers"
+	base "github.com/r4stl1n/micro-hal/code/pkg/drivers/base"
 )
 
 type Calibrate struct {
@@ -72,7 +72,7 @@ func (cmd *Calibrate) getConveretedValues(args []string) (int, int, float32, flo
 
 }
 
-func (cmd *Calibrate) minImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
+func (cmd *Calibrate) minImpulseCalibrate(pca *drivers.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
 
 	logrus.Infof("Starting test for minImpulse level starting at: %f", minImpulse)
 
@@ -131,7 +131,7 @@ func (cmd *Calibrate) minImpulseCalibrate(pca *pca9685.PCA9685, servoId int, act
 
 }
 
-func (cmd *Calibrate) maxImpulseCalibrate(pca *pca9685.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
+func (cmd *Calibrate) maxImpulseCalibrate(pca *drivers.PCA9685, servoId int, actuationRange int, minImpulse float32, maxImpulse float32, step float32) float32 {
 
 	logrus.Infof("Starting test for maxImpulse level starting at: %f", maxImpulse)
 
@@ -200,14 +200,14 @@ func (cmd *Calibrate) Run(_ *cobra.Command, args []string) {
 
 	// We create a connection to the i2c interface on the raspberry pi
 	logrus.Infof("Attempting to connect to the i2c address: %s", args[0])
-	i2c, err := i2c.New(pca9685.Address, args[0], i2c.DEFAULT_I2C_ADDRESS)
+	i2c, err := new(base.I2C).Init(drivers.DEFAULT_PCA9685_ADDRESS, args[0], base.DEFAULT_I2C_ADDRESS)
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
 	// Next we create the needed driver to connect to the pca9685
 	logrus.Info("Creating new connection to pca9685")
-	pca, err := pca9685.New(i2c, nil)
+	pca, err := new(drivers.PCA9685).Init(i2c, nil)
 	if err != nil {
 		logrus.Fatal(err)
 	}
