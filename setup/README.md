@@ -5,4 +5,4 @@ This will contain a hopeful step by step guide to preparing and setting up all t
 TODO: Implement all of it
 
 
-[Raspberry Pi Setup](https://github.com/R4stl1n/micro-hal/setup/pi.md)
+[Raspberry Pi Setup](https://github.com/R4stl1n/micro-hal/blob/main/setup/pi.md)
