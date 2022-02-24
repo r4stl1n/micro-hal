@@ -216,3 +216,5 @@ CTestTestfile.cmake
 _deps
 
 cmake-build-debug/
+
+code/builds/*

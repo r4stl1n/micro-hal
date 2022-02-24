@@ -200,7 +200,7 @@ func (cmd *Calibrate) Run(_ *cobra.Command, args []string) {
 
 	// We create a connection to the i2c interface on the raspberry pi
 	logrus.Infof("Attempting to connect to the i2c address: %s", args[0])
-	i2c, err := new(base.I2C).Init(drivers.DEFAULT_PCA9685_ADDRESS, args[0], base.DEFAULT_I2C_ADDRESS)
+	i2c, err := new(base.I2C).Init(drivers.DefaultPCA9685Address, args[0], base.DEFAULT_I2C_ADDRESS)
 	if err != nil {
 		logrus.Fatal(err)
 	}

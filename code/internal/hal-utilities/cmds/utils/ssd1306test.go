@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"time"
-
 	"github.com/fogleman/gg"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -36,7 +34,7 @@ func (cmd *SSD1306Test) Run(_ *cobra.Command, args []string) {
 
 	// We create a connection to the i2c interface on the raspberry pi
 	logrus.Infof("Attempting to connect to the i2c address: %s", args[0])
-	i2c, err := new(base.I2C).Init(drivers.DEFAULT_SSD1306_ADDRESS, args[0], base.DEFAULT_I2C_ADDRESS)
+	i2c, err := new(base.I2C).Init(drivers.DefaultSSD1306Address, args[0], base.DEFAULT_I2C_ADDRESS)
 
 	if err != nil {
 		logrus.Fatal(err)
@@ -64,7 +62,7 @@ func (cmd *SSD1306Test) Run(_ *cobra.Command, args []string) {
 	ctx.SetRGB(0, 0, 0)
 	ctx.Clear()
 	ctx.SetRGB(1, 1, 1)
-	ctx.DrawStringAnchored(time.Now().Format("15:04:05"), 0, 0, 0, 1)
+	ctx.DrawStringAnchored("HerpDerp", 0, 0, 0, 1)
 
 	ssd.ShowImage(ctx.Image())
 

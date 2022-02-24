@@ -6,3 +6,13 @@ Below is a break down of the current features and components that work within th
 
 TODO: Fill in the NATS/MSGPack based singaling 
 
+
+## Requirements
+
+The solution uses a make file to build the project and to ensure code formatting and checking.
+
+StaticCheck will need to be installed this can be done by calling
+
+```bash
+go install honnef.co/go/tools/cmd/staticcheck@latest
+```

@@ -50,7 +50,7 @@ func (servo *Servo) Angle(angle int) (err error) {
 // of the actuation range.
 func (servo *Servo) Fraction(fraction float32) (err error) {
 	if fraction < 0.0 || fraction > 1.0 {
-		return fmt.Errorf("Must be 0.0 to 1.0")
+		return fmt.Errorf("must be 0.0 to 1.0")
 	}
 
 	freq := servo.pca.GetFreq()

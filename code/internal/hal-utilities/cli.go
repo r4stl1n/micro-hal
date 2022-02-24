@@ -32,7 +32,6 @@ Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
 
 type CLI struct {
 	rootCommand   *cobra.Command
-	configFile    string
 	isInteractive bool
 	Error         error
 }
