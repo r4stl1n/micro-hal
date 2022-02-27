@@ -29,7 +29,7 @@ The electronics necessary in order to build the hal bot
 | PCA9685 16 Channel PWM Server Driver  | Servo Control             | 1  | $10 | [Link](https://www.amazon.com/dp/B014KTSMLA) |
 | SSD1306 Driver I2C Display            | Status Display            | 1  | $7  | [Link](https://www.amazon.com/dp/B072Q2X2LL) |
 | Zeee 7.4V 2S 5200mAh Lipo Battery 50C | Power Source              | 1  | $35 | [Link](https://www.amazon.com/dp/B08DD38XKV) |
-| MPU-6050 MPU6050 3 Axis Accelerometer | Orientation / Balance     | 1  | $10 | [Link](https://www.amazon.com/dp/B00LP25V1A) |
+| LSM6DS3 Module 6 degress IMU          | Orientation / Balance     | 1  | $9  | [Link](https://www.amazon.com/dp/B091TPT3TJ) |
 | HC-SR04 Ultrasonic Sensor Module      | Collision Avoidance       | 2  | $8  | [Link](https://www.amazon.com/dp/B07R7RMXTY) |
 | iFlight Mirco BEC 5V 3A / 12V 2A      | Voltage Regulator (RPi)   | 1  | $15 | [Link](https://www.amazon.com/dp/B0823QLMWC) | 
 | Servo Extension Cord Cable            | Extend Servo Wires        | 12 | $8  | [Link](https://www.amazon.com/dp/B01LA9YDEI) |
