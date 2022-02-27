@@ -1,6 +1,8 @@
 package drivers
 
 import (
+	"bytes"
+	"encoding/binary"
 	"fmt"
 
 	i2c "github.com/r4stl1n/micro-hal/code/pkg/drivers/base"
@@ -124,11 +126,11 @@ func (lsm6ds3 *LSM6DS3) Init(i2c *i2c.I2C, options *LSM6DS3Options) (*LSM6DS3, e
 		lsm6ds3.options = options
 	}
 
-	//err := lsm6ds3.initProcess()
+	err := lsm6ds3.initProcess()
 
-	//if err != nil {
-	//		return nil, err
-	//	}
+	if err != nil {
+		return nil, err
+	}
 
 	return lsm6ds3, nil
 }
@@ -212,7 +214,8 @@ func (lsm6ds3 *LSM6DS3) ReadAccelerationData() (LSM6DS3Data, error) {
 	y := int32(int16((uint16(data[3])<<8)|uint16(data[2]))) * 61
 	z := int32(int16((uint16(data[5])<<8)|uint16(data[4]))) * 61
 
-	return LSM6DS3Data{X: x, Y: y, Z: z}, nil
+	// Convert from micro gravity to gravity values
+	return LSM6DS3Data{X: x / 1000000, Y: y / 1000000, Z: z / 1000000}, nil
 }
 
 func (lsm6ds3 *LSM6DS3) ReadGyroData() (LSM6DS3Data, error) {
@@ -227,29 +230,32 @@ func (lsm6ds3 *LSM6DS3) ReadGyroData() (LSM6DS3Data, error) {
 	y := int32(int16((uint16(data[3])<<8)|uint16(data[2]))) * 70000
 	z := int32(int16((uint16(data[5])<<8)|uint16(data[4]))) * 70000
 
-	return LSM6DS3Data{X: x, Y: y, Z: z}, nil
+	// Convert from micro degree to degrees
+	return LSM6DS3Data{X: x / 1000000, Y: y / 1000000, Z: z / 1000000}, nil
 }
 
 func (lsm6ds3 *LSM6DS3) ReadTemperatureData() (float32, error) {
 
-	data, _, err := lsm6ds3.i2c.ReadRegBytes(OUT_TEMP_L, 62)
+	data, _, err := lsm6ds3.i2c.ReadRegBytes(OUT_TEMP_L, 2)
 
 	if err != nil {
 		return 0.0, err
 	}
 
-	// Convert the data to milli degree (C)
-	temperature := float32(25000 + (int32((int16(data[1])<<8)|int16(data[0]))*125)/2)
+	var temp int16
 
-	// Convert the milli degree to degree (C)
-	temperature = temperature / 1000
+	buf := bytes.NewBuffer(data)
+
+	err = binary.Read(buf, binary.BigEndian, &temp)
+
+	// Convert the data to milli degree (C)
+	t := float32((temp / 1000))
 
 	if !lsm6ds3.options.InCelsius {
 		// Convert to fahrenheit
-		temperature = (temperature * 1.8) + 32
-
+		t = (t * 1.8) + 32
 	}
 
-	return temperature, nil
+	return t, nil
 
 }

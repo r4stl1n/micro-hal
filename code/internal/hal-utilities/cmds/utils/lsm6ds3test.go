@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"time"
+
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
@@ -19,12 +21,12 @@ func (cmd *LSM6DS3Test) Init() *LSM6DS3Test {
 
 func (cmd *LSM6DS3Test) Command() *cobra.Command {
 	return &cobra.Command{
-		Use:                   "mpu6050",
-		Aliases:               []string{"mpu"},
+		Use:                   "lsm6ds3",
+		Aliases:               []string{"lsm"},
 		Args:                  cobra.ExactArgs(1),
 		ArgAliases:            []string{"i2c-address"},
 		DisableFlagsInUseLine: true,
-		Short:                 "test mpu",
+		Short:                 "test lsm",
 		Run:                   cmd.Run,
 	}
 }
@@ -48,14 +50,17 @@ func (cmd *LSM6DS3Test) Run(_ *cobra.Command, args []string) {
 		logrus.Fatal(err)
 	}
 
-	accelerometer, gyroscope, temperature, err := lsm.ReadData()
+	for {
+		accelerometer, gyroscope, temperature, err := lsm.ReadData()
 
-	if err != nil {
-		logrus.Fatal(err)
+		if err != nil {
+			logrus.Fatal(err)
+		}
+
+		logrus.Infof("Accelerometer: %+v", accelerometer)
+		logrus.Infof("Gyroscope: %+v", gyroscope)
+		logrus.Infof("Temprature: %+v", temperature)
+
+		time.Sleep(time.Duration(1) * time.Second)
 	}
-
-	logrus.Infof("Accelerometer: %+v", accelerometer)
-	logrus.Infof("Gyroscope: %+v", gyroscope)
-	logrus.Infof("Temprature: %+v", temperature)
-
 }
