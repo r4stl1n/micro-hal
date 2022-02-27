@@ -22,6 +22,7 @@ func (cmd *Utils) Command() *cobra.Command {
 		Short:                 "utility commands",
 	}
 
+	command.AddCommand(new(utils.LSM6DS3Test).Init().Command())
 	command.AddCommand(new(utils.SSD1306Test).Init().Command())
 
 	return command
