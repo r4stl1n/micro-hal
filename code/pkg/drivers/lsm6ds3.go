@@ -11,80 +11,80 @@ import (
 const DefaultLSM6DS3Address = 0x6b
 
 const (
-	WHO_AM_I             = 0x0F
-	STATUS               = 0x1E
-	CTRL1_XL             = 0x10
-	CTRL2_G              = 0x11
-	CTRL3_C              = 0x12
-	CTRL4_C              = 0x13
-	CTRL5_C              = 0x14
-	CTRL6_C              = 0x15
-	CTRL7_G              = 0x16
-	CTRL8_XL             = 0x17
-	CTRL9_XL             = 0x18
-	CTRL10_C             = 0x19
-	OUTX_L_G             = 0x22
-	OUTX_H_G             = 0x23
-	OUTY_L_G             = 0x24
-	OUTY_H_G             = 0x25
-	OUTZ_L_G             = 0x26
-	OUTZ_H_G             = 0x27
-	OUTX_L_XL            = 0x28
-	OUTX_H_XL            = 0x29
-	OUTY_L_XL            = 0x2A
-	OUTY_H_XL            = 0x2B
-	OUTZ_L_XL            = 0x2C
-	OUTZ_H_XL            = 0x2D
-	OUT_TEMP_L           = 0x20
-	OUT_TEMP_H           = 0x21
-	BW_SCAL_ODR_DISABLED = 0x00
-	BW_SCAL_ODR_ENABLED  = 0x80
-	STEP_TIMESTAMP_L     = 0x49
-	STEP_TIMESTAMP_H     = 0x4A
-	STEP_COUNTER_L       = 0x4B
-	STEP_COUNTER_H       = 0x4C
-	STEP_COUNT_DELTA     = 0x15
-	TAP_CFG              = 0x58
-	INT1_CTRL            = 0x0D
+	// lsm6ds3WhoAmI        = 0x0F
+	// lsm6ds3Status        = 0x1E
+	lsm6ds3Ctrl1XL = 0x10
+	lsm6ds3Ctrl2G  = 0x11
+	// lsm6ds3Ctrl3C         = 0x12
+	lsm6ds3Ctrl4C = 0x13
+	// lsm6ds3Ctrl5C            = 0x14
+	// lsm6ds3Ctrl6C            = 0x15
+	// lsm6ds3Ctrl7C            = 0x16
+	// lsm6ds3Ctrl8Xl           = 0x17
+	// lsm6ds3Ctrl9Xl           = 0x18
+	// lsm6ds3Ctrl10C           = 0x19
+	lsm6ds3OutXLG = 0x22
+	// lsm6ds3OutXHG            = 0x23
+	// lsm6ds3OutYLG            = 0x24
+	// lsm6ds3OutYHG            = 0x25
+	// lsm6ds3OutZLG            = 0x26
+	// lsm6ds3OutZHG            = 0x27
+	lsm6ds3OutLXL = 0x28
+	// lsm6ds3OutXHXL           = 0x29
+	// lsm6ds3OutYLXL           = 0x2A
+	// lsm6ds3OutYHXL           = 0x2B
+	// lsm6ds3OutZLXL           = 0x2C
+	// lsm6ds3OutZHXL           = 0x2D
+	lsm6ds3OutTempL = 0x20
+	// lsm6ds3OutTempH          = 0x21
+	// lsm6ds3BwScalOdrDisabled = 0x00
+	lsm6ds3BwScalOdrEnabled = 0x80
+	// lsm6ds3StepTimestampL    = 0x49
+	// lsm6ds3StepTimestampH    = 0x4A
+	// lsm6ds3StepCounterL      = 0x4B
+	// lsm6ds3StepCounterH      = 0x4C
+	// lsm6ds3StepCounterDelta  = 0x15
+	// lsm6ds3TapCfg            = 0x58
+	// lsm6ds3Int1Ctrl          = 0x0D
 
-	ACCEL_2G  uint8 = 0x00
-	ACCEL_4G  uint8 = 0x08
-	ACCEL_8G  uint8 = 0x0C
-	ACCEL_16G uint8 = 0x04
+	lsm6ds3Accel2G uint8 = 0x00
+	// lsm6ds3Accel4G  uint8 = 0x08
+	// lsm6ds3Accel8G  uint8 = 0x0C
+	// lsm6ds3Accel16G uint8 = 0x04
 
-	ACCEL_SR_OFF   uint8 = 0x00
-	ACCEL_SR_13    uint8 = 0x10
-	ACCEL_SR_26    uint8 = 0x20
-	ACCEL_SR_52    uint8 = 0x30
-	ACCEL_SR_104   uint8 = 0x40
-	ACCEL_SR_208   uint8 = 0x50
-	ACCEL_SR_416   uint8 = 0x60
-	ACCEL_SR_833   uint8 = 0x70
-	ACCEL_SR_1666  uint8 = 0x80
-	ACCEL_SR_3332  uint8 = 0x90
-	ACCEL_SR_6664  uint8 = 0xA0
-	ACCEL_SR_13330 uint8 = 0xB0
+	// lsm6ds3AccelSrOFF   uint8 = 0x00
+	// lsm6ds3AccelSr13    uint8 = 0x10
+	// lsm6ds3AccelSr26    uint8 = 0x20
+	// lsm6ds3AccelSr52    uint8 = 0x30
+	lsm6ds3AccelSr104 uint8 = 0x40
+	// lsm6ds3AccelSr208   uint8 = 0x50
+	// lsm6ds3AccelSr416   uint8 = 0x60
+	// lsm6ds3AccelSr833   uint8 = 0x70
+	// lsm6ds3AccelSr1666  uint8 = 0x80
+	// lsm6ds3AccelSr332   uint8 = 0x90
+	// lsm6ds3AccelSr6664  uint8 = 0xA0
+	// lsm6ds3AccelSr13330 uint8 = 0xB0
 
-	ACCEL_BW_50  uint8 = 0x03
-	ACCEL_BW_100 uint8 = 0x02
-	ACCEL_BW_200 uint8 = 0x01
-	ACCEL_BW_400 uint8 = 0x00
+	// lsm6ds3AccelBw50  uint8 = 0x03
+	lsm6ds3AccelBw100 uint8 = 0x02
+	// lsm6ds3AccelBw200 uint8 = 0x01
+	// lsm6ds3AccelBw400 uint8 = 0x00
 
-	//GYRO_125DPS  uint8 = 0x01
-	GYRO_250DPS  uint8 = 0x00
-	GYRO_500DPS  uint8 = 0x04
-	GYRO_1000DPS uint8 = 0x08
-	GYRO_2000DPS uint8 = 0x0C
+	// lsm6ds3Gyro125Dps  uint8 = 0x01
+	// lsm6ds3Gyro250Dps  uint8 = 0x00
+	// lsm6ds3Gyro500Dps  uint8 = 0x04
+	// lsm6ds3Gyro1000Dps uint8 = 0x08
+	lsm6ds3Gyro2000Dps uint8 = 0x0C
 
-	GYRO_SR_OFF  uint8 = 0x00
-	GYRO_SR_13   uint8 = 0x10
-	GYRO_SR_26   uint8 = 0x20
-	GYRO_SR_52   uint8 = 0x30
-	GYRO_SR_104  uint8 = 0x40
-	GYRO_SR_208  uint8 = 0x50
-	GYRO_SR_416  uint8 = 0x60
-	GYRO_SR_833  uint8 = 0x70
-	GYRO_SR_1666 uint8 = 0x80
+	// lsm6ds3GyroSrOFF  uint8 = 0x00
+	// lsm6ds3GyroSr13   uint8 = 0x10
+	// lsm6ds3GyroSr26   uint8 = 0x20
+	// lsm6ds3GyroSr52   uint8 = 0x30
+	lsm6ds3GyroSr104 uint8 = 0x40
+	// lsm6ds3GyroSr208  uint8 = 0x50
+	// lsm6ds3GyroSr416  uint8 = 0x60
+	// lsm6ds3GyroSr833  uint8 = 0x70
+	// lsm6ds3GyroSr1666 uint8 = 0x80
 )
 
 type LSM6DS3Data struct {
@@ -139,8 +139,8 @@ func (lsm6ds3 *LSM6DS3) initProcess() error {
 
 	// configure accelerometer mode
 	_, err := lsm6ds3.i2c.WriteBytes([]byte{
-		CTRL1_XL,
-		ACCEL_2G | ACCEL_SR_104 | ACCEL_BW_100,
+		lsm6ds3Ctrl1XL,
+		lsm6ds3Accel2G | lsm6ds3AccelSr104 | lsm6ds3AccelBw100,
 	})
 
 	if err != nil {
@@ -148,24 +148,24 @@ func (lsm6ds3 *LSM6DS3) initProcess() error {
 	}
 
 	// Set ODR bit
-	ctrl4cData, err := lsm6ds3.i2c.ReadRegU8(CTRL4_C)
+	ctrl4cData, err := lsm6ds3.i2c.ReadRegU8(lsm6ds3Ctrl4C)
 
 	if err != nil {
 		return err
 	}
 
-	ctrl4cData = ctrl4cData &^ BW_SCAL_ODR_ENABLED
-	ctrl4cData |= BW_SCAL_ODR_ENABLED
+	ctrl4cData = ctrl4cData &^ lsm6ds3BwScalOdrEnabled
+	ctrl4cData |= lsm6ds3BwScalOdrEnabled
 
 	_, err = lsm6ds3.i2c.WriteBytes([]byte{
-		CTRL4_C,
+		lsm6ds3Ctrl4C,
 		ctrl4cData,
 	})
 
 	// Configure gyroscope
 	_, err = lsm6ds3.i2c.WriteBytes([]byte{
-		CTRL2_G,
-		GYRO_2000DPS | GYRO_SR_104,
+		lsm6ds3Ctrl2G,
+		lsm6ds3Gyro2000Dps | lsm6ds3GyroSr104,
 	})
 
 	if err != nil {
@@ -204,7 +204,7 @@ func (lsm6ds3 *LSM6DS3) ReadData() (LSM6DS3Data, LSM6DS3Data, float32, error) {
 
 func (lsm6ds3 *LSM6DS3) ReadAccelerationData() (LSM6DS3Data, error) {
 
-	data, _, err := lsm6ds3.i2c.ReadRegBytes(OUTX_L_XL, 6)
+	data, _, err := lsm6ds3.i2c.ReadRegBytes(lsm6ds3OutLXL, 6)
 
 	if err != nil {
 		return LSM6DS3Data{}, err
@@ -220,7 +220,7 @@ func (lsm6ds3 *LSM6DS3) ReadAccelerationData() (LSM6DS3Data, error) {
 
 func (lsm6ds3 *LSM6DS3) ReadGyroData() (LSM6DS3Data, error) {
 
-	data, _, err := lsm6ds3.i2c.ReadRegBytes(OUTX_L_G, 6)
+	data, _, err := lsm6ds3.i2c.ReadRegBytes(lsm6ds3OutXLG, 6)
 
 	if err != nil {
 		return LSM6DS3Data{}, err
@@ -236,7 +236,7 @@ func (lsm6ds3 *LSM6DS3) ReadGyroData() (LSM6DS3Data, error) {
 
 func (lsm6ds3 *LSM6DS3) ReadTemperatureData() (float32, error) {
 
-	data, _, err := lsm6ds3.i2c.ReadRegBytes(OUT_TEMP_L, 2)
+	data, _, err := lsm6ds3.i2c.ReadRegBytes(lsm6ds3OutTempL, 2)
 
 	if err != nil {
 		return 0.0, err
@@ -249,7 +249,7 @@ func (lsm6ds3 *LSM6DS3) ReadTemperatureData() (float32, error) {
 	err = binary.Read(buf, binary.BigEndian, &temp)
 
 	// Convert the data to milli degree (C)
-	t := float32((temp / 1000))
+	t := float32(temp / 1000)
 
 	if !lsm6ds3.options.InCelsius {
 		// Convert to fahrenheit
