@@ -119,6 +119,10 @@ func (quadLeg *QuadLeg) SetGaitPhase(gaitPhase bool) {
 	quadLeg.gaitPhase = gaitPhase
 }
 
+func (quadLeg *QuadLeg) GaitConfig() cstructs.GaitConfig {
+	return quadLeg.gaitConfig
+}
+
 func (quadLeg *QuadLeg) IsInGaitPhase() bool {
 	return quadLeg.gaitPhase
 }

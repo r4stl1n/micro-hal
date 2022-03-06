@@ -1,13 +1,14 @@
-package cbase
+package champ
 
 import (
+	"github.com/r4stl1n/micro-hal/code/pkg/champ/cbase"
 	"time"
 )
 
 type PhaseGenerator struct {
 	time time.Time
 
-	base              *QuadBase
+	base              *cbase.QuadBase
 	lastTouchDown     time.Time
 	hasSwung          bool
 	hasStarted        bool
@@ -15,7 +16,7 @@ type PhaseGenerator struct {
 	swingPhaseSignal  [4]float32
 }
 
-func (phaseGenerator *PhaseGenerator) Init(quadBase *QuadBase, currentTime time.Time) {
+func (phaseGenerator *PhaseGenerator) Init(quadBase *cbase.QuadBase, currentTime time.Time) {
 
 	*phaseGenerator = PhaseGenerator{
 		base:              quadBase,
@@ -34,7 +35,7 @@ func (phaseGenerator *PhaseGenerator) Run(targetVelocity float32, currentTime ti
 	elapsedTimeRef := float32(0.0)
 	swingPhasePeriod := 0.25 * secondsToMicro
 	legClocks := [4]float32{0.0, 0.0, 0.0, 0.0}
-	stancePhasePeriod := phaseGenerator.base.gaitConfig.StanceDuration * secondsToMicro
+	stancePhasePeriod := phaseGenerator.base.GaitConfig().StanceDuration * secondsToMicro
 	stridePeriod := stancePhasePeriod + swingPhasePeriod
 
 	if targetVelocity == 0.0 {

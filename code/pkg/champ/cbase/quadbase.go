@@ -95,3 +95,7 @@ func (quadBase *QuadBase) SetGaitConfig(gaitConfig cstructs.GaitConfig) {
 		quadBase.legs[i].SetGaitConfig(gaitConfig)
 	}
 }
+
+func (quadBase *QuadBase) GaitConfig() cstructs.GaitConfig {
+	return quadBase.gaitConfig
+}

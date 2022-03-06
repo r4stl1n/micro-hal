@@ -1,12 +1,13 @@
-package cbase
+package champ
 
 import (
 	math "github.com/chewxy/math32"
+	"github.com/r4stl1n/micro-hal/code/pkg/champ/cbase"
 	"github.com/r4stl1n/micro-hal/code/pkg/champ/cstructs"
 )
 
 type TrajectoryPlanner struct {
-	leg                  *QuadLeg
+	leg                  *cbase.QuadLeg
 	previousFootPosition cstructs.Transformation
 
 	totalControlPoints int
@@ -22,7 +23,7 @@ type TrajectoryPlanner struct {
 	runOnce bool
 }
 
-func (trajectoryPlanner *TrajectoryPlanner) Init(leg *QuadLeg) *TrajectoryPlanner {
+func (trajectoryPlanner *TrajectoryPlanner) Init(leg *cbase.QuadLeg) *TrajectoryPlanner {
 
 	*trajectoryPlanner = TrajectoryPlanner{
 		leg:                  leg,
@@ -79,7 +80,7 @@ func (trajectoryPlanner *TrajectoryPlanner) UpdateControlPointsLength(stepLength
 func (trajectoryPlanner *TrajectoryPlanner) Generate(footPosition cstructs.Transformation, stepLength float32,
 	rotation float32, swingPhaseSignal float32, stancePhaseSignal float32) cstructs.Transformation {
 
-	trajectoryPlanner.UpdateControlPointsHeight(trajectoryPlanner.leg.gaitConfig.SwingHeight)
+	trajectoryPlanner.UpdateControlPointsHeight(trajectoryPlanner.leg.GaitConfig().SwingHeight)
 
 	if !trajectoryPlanner.runOnce {
 		trajectoryPlanner.runOnce = true
@@ -102,7 +103,7 @@ func (trajectoryPlanner *TrajectoryPlanner) Generate(footPosition cstructs.Trans
 		trajectoryPlanner.leg.SetGaitPhase(true)
 
 		x = (stepLength / 2) * (1 - (2 * stancePhaseSignal))
-		y = -trajectoryPlanner.leg.gaitConfig.StanceDepth * math.Cos((math.Pi*x)/stepLength)
+		y = -trajectoryPlanner.leg.GaitConfig().StanceDepth * math.Cos((math.Pi*x)/stepLength)
 	} else if stancePhaseSignal < swingPhaseSignal {
 		trajectoryPlanner.leg.SetGaitPhase(false)
 
