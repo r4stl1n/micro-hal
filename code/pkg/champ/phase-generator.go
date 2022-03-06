@@ -16,7 +16,7 @@ type PhaseGenerator struct {
 	swingPhaseSignal  [4]float32
 }
 
-func (phaseGenerator *PhaseGenerator) Init(quadBase *cbase.QuadBase, currentTime time.Time) {
+func (phaseGenerator *PhaseGenerator) Init(quadBase *cbase.QuadBase, currentTime time.Time) *PhaseGenerator {
 
 	*phaseGenerator = PhaseGenerator{
 		base:              quadBase,
@@ -26,9 +26,11 @@ func (phaseGenerator *PhaseGenerator) Init(quadBase *cbase.QuadBase, currentTime
 		stancePhaseSignal: [4]float32{0.0, 0.0, 0.0, 0.0},
 		swingPhaseSignal:  [4]float32{0.0, 0.0, 0.0, 0.0},
 	}
+
+	return phaseGenerator
 }
 
-func (phaseGenerator *PhaseGenerator) Run(targetVelocity float32, currentTime time.Time) {
+func (phaseGenerator *PhaseGenerator) Run(targetVelocity float32, stepLength float32, currentTime time.Time) {
 
 	secondsToMicro := float32(1000000)
 
