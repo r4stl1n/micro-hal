@@ -61,10 +61,10 @@ func (quadLeg *QuadLeg) FootFromHip() cstructs.Transformation {
 	var footPosition cstructs.Transformation
 
 	for i := 3; i > 0; i-- {
-		footPosition.Translate(quadLeg.JointChain[i].X(), quadLeg.JointChain[i].Y(), quadLeg.JointChain[i].Z())
+		footPosition = footPosition.Translate(quadLeg.JointChain[i].X(), quadLeg.JointChain[i].Y(), quadLeg.JointChain[i].Z())
 
 		if i > 1 {
-			footPosition.RotateY(quadLeg.JointChain[i-1].Theta())
+			footPosition = footPosition.RotateY(quadLeg.JointChain[i-1].Theta())
 		}
 
 	}
@@ -76,8 +76,8 @@ func (quadLeg *QuadLeg) FootFromBase() cstructs.Transformation {
 	var footPosition cstructs.Transformation
 
 	footPosition.Point = quadLeg.FootFromHip().Point
-	footPosition.RotateX(quadLeg.HipJoint.Theta())
-	footPosition.Translate(quadLeg.HipJoint.X(), quadLeg.HipJoint.Y(), quadLeg.HipJoint.Z())
+	footPosition = footPosition.RotateX(quadLeg.HipJoint.Theta())
+	footPosition = footPosition.Translate(quadLeg.HipJoint.X(), quadLeg.HipJoint.Y(), quadLeg.HipJoint.Z())
 
 	return footPosition
 }
