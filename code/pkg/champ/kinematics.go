@@ -63,8 +63,8 @@ func (kinematics *Kinematics) inverseF(quadLeg *cbase.QuadLeg, footPosition cstr
 	z := tempFootPosition.Z()
 
 	hipJoint = -(math.Atan(y/z) - ((math.Pi / 2) - math.Acos(-l0/math.Sqrt(math.Pow(y, 2)+math.Pow(z, 2)))))
-	tempFootPosition.RotateX(-hipJoint)
-	tempFootPosition.Translate(-quadLeg.UpperLegJoint.X(), 0.0, -quadLeg.UpperLegJoint.Z())
+	tempFootPosition = tempFootPosition.RotateX(-hipJoint)
+	tempFootPosition = tempFootPosition.Translate(-quadLeg.UpperLegJoint.X(), 0.0, -quadLeg.UpperLegJoint.Z())
 
 	x = tempFootPosition.X()
 	y = tempFootPosition.Y()
