@@ -19,14 +19,14 @@ type QuadLeg struct {
 	isPantograph  bool
 	gaitPhase     bool
 
-	hipJoint      *QuadJoint
-	upperLegJoint *QuadJoint
-	lowerLegJoint *QuadJoint
-	footJoint     *QuadJoint
+	HipJoint      *QuadJoint
+	UpperLegJoint *QuadJoint
+	LowerLegJoint *QuadJoint
+	FootJoint     *QuadJoint
 
 	gaitConfig cstructs.GaitConfig
 
-	jointChain []*QuadJoint
+	JointChain []*QuadJoint
 }
 
 func (quadLeg *QuadLeg) Init() *QuadLeg {
@@ -40,18 +40,18 @@ func (quadLeg *QuadLeg) Init() *QuadLeg {
 		kneeDirection:   0,
 		isPantograph:    false,
 		gaitPhase:       true,
-		hipJoint:        new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
-		upperLegJoint:   new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
-		lowerLegJoint:   new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
-		footJoint:       new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
+		HipJoint:        new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
+		UpperLegJoint:   new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
+		LowerLegJoint:   new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
+		FootJoint:       new(QuadJoint).Init(hmath.Vec3{}, hmath.Vec3{}, 0.0),
 
 		gaitConfig: cstructs.GaitConfig{},
 	}
 
-	quadLeg.jointChain = append(quadLeg.jointChain, quadLeg.hipJoint)
-	quadLeg.jointChain = append(quadLeg.jointChain, quadLeg.upperLegJoint)
-	quadLeg.jointChain = append(quadLeg.jointChain, quadLeg.lowerLegJoint)
-	quadLeg.jointChain = append(quadLeg.jointChain, quadLeg.footJoint)
+	quadLeg.JointChain = append(quadLeg.JointChain, quadLeg.HipJoint)
+	quadLeg.JointChain = append(quadLeg.JointChain, quadLeg.UpperLegJoint)
+	quadLeg.JointChain = append(quadLeg.JointChain, quadLeg.LowerLegJoint)
+	quadLeg.JointChain = append(quadLeg.JointChain, quadLeg.FootJoint)
 
 	return quadLeg
 }
@@ -61,10 +61,10 @@ func (quadLeg *QuadLeg) FootFromHip() cstructs.Transformation {
 	var footPosition cstructs.Transformation
 
 	for i := 3; i > 0; i-- {
-		footPosition.Translate(quadLeg.jointChain[i].X(), quadLeg.jointChain[i].Y(), quadLeg.jointChain[i].Z())
+		footPosition.Translate(quadLeg.JointChain[i].X(), quadLeg.JointChain[i].Y(), quadLeg.JointChain[i].Z())
 
 		if i > 1 {
-			footPosition.RotateY(quadLeg.jointChain[i-1].Theta())
+			footPosition.RotateY(quadLeg.JointChain[i-1].Theta())
 		}
 
 	}
@@ -76,29 +76,29 @@ func (quadLeg *QuadLeg) FootFromBase() cstructs.Transformation {
 	var footPosition cstructs.Transformation
 
 	footPosition.Point = quadLeg.FootFromHip().Point
-	footPosition.RotateX(quadLeg.hipJoint.Theta())
-	footPosition.Translate(quadLeg.hipJoint.X(), quadLeg.hipJoint.Y(), quadLeg.hipJoint.Z())
+	footPosition.RotateX(quadLeg.HipJoint.Theta())
+	footPosition.Translate(quadLeg.HipJoint.X(), quadLeg.HipJoint.Y(), quadLeg.HipJoint.Z())
 
 	return footPosition
 }
 
 func (quadLeg *QuadLeg) SetJoints(hipJoint float32, upperLegJoint float32, lowerLegJoint float32) {
-	quadLeg.hipJoint.SetTheta(hipJoint)
-	quadLeg.upperLegJoint.SetTheta(upperLegJoint)
-	quadLeg.lowerLegJoint.SetTheta(lowerLegJoint)
+	quadLeg.HipJoint.SetTheta(hipJoint)
+	quadLeg.UpperLegJoint.SetTheta(upperLegJoint)
+	quadLeg.LowerLegJoint.SetTheta(lowerLegJoint)
 }
 
-func (quadLeg *QuadLeg) ZeroStance() cstructs.Transformation {
-	quadLeg.zeroStance.SetX(quadLeg.hipJoint.X() + quadLeg.upperLegJoint.X() + quadLeg.gaitConfig.ComXTranslation)
-	quadLeg.zeroStance.SetY(quadLeg.hipJoint.Y() + quadLeg.upperLegJoint.Y())
-	quadLeg.zeroStance.SetZ(quadLeg.hipJoint.Z() + quadLeg.upperLegJoint.Z() + quadLeg.lowerLegJoint.Z() + quadLeg.footJoint.Z())
+func (quadLeg QuadLeg) ZeroStance() cstructs.Transformation {
+	quadLeg.zeroStance.SetX(quadLeg.HipJoint.X() + quadLeg.UpperLegJoint.X() + quadLeg.gaitConfig.ComXTranslation)
+	quadLeg.zeroStance.SetY(quadLeg.HipJoint.Y() + quadLeg.UpperLegJoint.Y())
+	quadLeg.zeroStance.SetZ(quadLeg.HipJoint.Z() + quadLeg.UpperLegJoint.Z() + quadLeg.LowerLegJoint.Z() + quadLeg.FootJoint.Z())
 
 	return quadLeg.zeroStance
 }
 
 func (quadLeg *QuadLeg) CenterToNominal() float32 {
-	x := quadLeg.hipJoint.X() + quadLeg.upperLegJoint.X()
-	y := quadLeg.hipJoint.Y() + quadLeg.upperLegJoint.Y()
+	x := quadLeg.HipJoint.X() + quadLeg.UpperLegJoint.X()
+	y := quadLeg.HipJoint.Y() + quadLeg.UpperLegJoint.Y()
 
 	return math.Sqrt(math.Pow(x, 2) + math.Pow(y, 2))
 }

@@ -48,9 +48,9 @@ func (quadBase *QuadBase) GetJointPositions() []float32 {
 	var retVal []float32
 
 	for i := 0; i < 4; i++ {
-		retVal = append(retVal, quadBase.Legs[i].hipJoint.Theta())
-		retVal = append(retVal, quadBase.Legs[i].upperLegJoint.Theta())
-		retVal = append(retVal, quadBase.Legs[i].lowerLegJoint.Theta())
+		retVal = append(retVal, quadBase.Legs[i].HipJoint.Theta())
+		retVal = append(retVal, quadBase.Legs[i].UpperLegJoint.Theta())
+		retVal = append(retVal, quadBase.Legs[i].LowerLegJoint.Theta())
 	}
 
 	return retVal
@@ -60,7 +60,7 @@ func (quadBase *QuadBase) GetFootPositions() []float32 {
 	var retVal []float32
 
 	for i := 0; i < 4; i++ {
-		retVal = append(retVal, quadBase.Legs[i].footJoint.Theta())
+		retVal = append(retVal, quadBase.Legs[i].FootJoint.Theta())
 	}
 
 	return retVal
@@ -70,9 +70,9 @@ func (quadBase *QuadBase) UpdateJointPositions(positions []float32) {
 	for i := 0; i < 4; i++ {
 		index := i * 3
 
-		quadBase.Legs[i].hipJoint.SetTheta(positions[index])
-		quadBase.Legs[i].upperLegJoint.SetTheta(positions[index+1])
-		quadBase.Legs[i].lowerLegJoint.SetTheta(positions[index+2])
+		quadBase.Legs[i].HipJoint.SetTheta(positions[index])
+		quadBase.Legs[i].UpperLegJoint.SetTheta(positions[index+1])
+		quadBase.Legs[i].LowerLegJoint.SetTheta(positions[index+2])
 	}
 }
 

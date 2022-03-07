@@ -60,8 +60,10 @@ func (legController *LegController) TransformLeg(quadLeg *cbase.QuadLeg, stepLen
 	transformedStance.Translate(stepX, stepY, 0.0)
 	transformedStance.RotateZ(theta)
 
-	deltaX := transformedStance.X() - quadLeg.ZeroStance().X()
-	deltaY := transformedStance.Y() - quadLeg.ZeroStance().Y()
+	zeroStance := quadLeg.ZeroStance()
+
+	deltaX := transformedStance.X() - zeroStance.X()
+	deltaY := transformedStance.Y() - zeroStance.Y()
 
 	stepLength = math.Sqrt(math.Pow(deltaX, 2)+math.Pow(deltaY, 2)) * 2.0
 
