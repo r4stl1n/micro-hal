@@ -57,8 +57,8 @@ func (legController *LegController) TransformLeg(quadLeg *cbase.QuadLeg, stepLen
 	stepX float32, stepY float32, theta float32) (float32, float32) {
 
 	transformedStance := quadLeg.ZeroStance()
-	transformedStance.Translate(stepX, stepY, 0.0)
-	transformedStance.RotateZ(theta)
+	transformedStance = transformedStance.Translate(stepX, stepY, 0.0)
+	transformedStance = transformedStance.RotateZ(theta)
 
 	zeroStance := quadLeg.ZeroStance()
 
@@ -112,14 +112,14 @@ func (legController *LegController) VelocityCommand(footPositions [4]cstructs.Tr
 	sumOfSteps := float32(0.0)
 
 	for i := 0; i < 4; i++ {
-		legController.TransformLeg(legController.quadBase.Legs[i], stepLengths[i], trajectoryRotations[i], stepX, stepY, theta)
+		stepLengths[i], trajectoryRotations[i] = legController.TransformLeg(legController.quadBase.Legs[i], stepLengths[i], trajectoryRotations[i], stepX, stepY, theta)
 		sumOfSteps = sumOfSteps + stepLengths[i]
 	}
 
 	legController.phaseGenerator.Run(velocity, sumOfSteps/4.0, currentTime)
 
 	for i := 0; i < 4; i++ {
-		legController.trajectoryPlanners[i].Generate(footPositions[i], stepLengths[i], trajectoryRotations[i],
+		footPositions[i] = legController.trajectoryPlanners[i].Generate(footPositions[i], stepLengths[i], trajectoryRotations[i],
 			legController.phaseGenerator.swingPhaseSignal[i], legController.phaseGenerator.stancePhaseSignal[i])
 	}
 

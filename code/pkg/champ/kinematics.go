@@ -93,3 +93,11 @@ func (kinematics *Kinematics) inverseF(quadLeg *cbase.QuadLeg, footPosition cstr
 
 	return hipJoint, lowerLegJoint, upperLegJoint
 }
+
+func KinematicsTransformToHip(footPosition cstructs.Transformation, quadLeg *cbase.QuadLeg) cstructs.Transformation {
+	return footPosition.Translate(-quadLeg.HipJoint.X(), -quadLeg.HipJoint.Y(), -quadLeg.HipJoint.Z())
+}
+
+func KinematicsTransformToBase(footPosition cstructs.Transformation, quadLeg *cbase.QuadLeg) cstructs.Transformation {
+	return footPosition.Translate(quadLeg.HipJoint.X(), quadLeg.HipJoint.Y(), quadLeg.HipJoint.Z())
+}
