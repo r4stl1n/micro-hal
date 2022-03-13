@@ -37,7 +37,7 @@ func main() {
 	serviceManager, err := new(managers.JointsManager).Init()
 
 	if err != nil {
-		logrus.Error(err.Error())
+		logrus.Fatal(err)
 	}
 
 	logrus.Info("joints node started")

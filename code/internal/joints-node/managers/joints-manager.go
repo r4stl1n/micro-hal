@@ -27,7 +27,8 @@ type JointsManager struct {
 func (jointsManager *JointsManager) Init() (*JointsManager, error) {
 
 	*jointsManager = JointsManager{
-		nats: new(mq.Nats).Init(*new(structs.NatsConfig).Defaults()),
+		nats:     new(mq.Nats).Init(*new(structs.NatsConfig).Defaults()),
+		servoMap: map[string]*components.Servo{},
 	}
 
 	err := jointsManager.connectI2C()
