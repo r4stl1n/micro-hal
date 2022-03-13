@@ -74,7 +74,7 @@ func (cmd *CreateMap) minImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 	logrus.Infof("Starting test for minImpulse level starting at: %f", minImpulse)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
@@ -108,7 +108,7 @@ func (cmd *CreateMap) minImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 			didAdjust = true
 			minImpulse = minImpulse - step
 
-			servo = new(components.Servo).New(pca, servoId, &components.ServoOptions{
+			servo = new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 				ActuationRange: actuationRange,
 				MinPulse:       minImpulse,
 				MaxPulse:       maxImpulse,
@@ -133,7 +133,7 @@ func (cmd *CreateMap) maxImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 	logrus.Infof("Starting test for maxImpulse level starting at: %f", maxImpulse)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
@@ -167,7 +167,7 @@ func (cmd *CreateMap) maxImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 			didAdjust = true
 			maxImpulse = maxImpulse + step
 
-			servo = new(components.Servo).New(pca, servoId, &components.ServoOptions{
+			servo = new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 				ActuationRange: actuationRange,
 				MinPulse:       minImpulse,
 				MaxPulse:       maxImpulse,
@@ -192,7 +192,7 @@ func (cmd *CreateMap) moveToDefault(pca *drivers.PCA9685, servoId int, actuation
 	logrus.Infof("Moving servo %d to default position %d", servoId, angle)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,

@@ -77,7 +77,7 @@ func (cmd *Calibrate) minImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 	logrus.Infof("Starting test for minImpulse level starting at: %f", minImpulse)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
@@ -111,7 +111,7 @@ func (cmd *Calibrate) minImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 			didAdjust = true
 			minImpulse = minImpulse - step
 
-			servo = new(components.Servo).New(pca, servoId, &components.ServoOptions{
+			servo = new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 				ActuationRange: actuationRange,
 				MinPulse:       minImpulse,
 				MaxPulse:       maxImpulse,
@@ -136,7 +136,7 @@ func (cmd *Calibrate) maxImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 	logrus.Infof("Starting test for maxImpulse level starting at: %f", maxImpulse)
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
@@ -170,7 +170,7 @@ func (cmd *Calibrate) maxImpulseCalibrate(pca *drivers.PCA9685, servoId int, act
 			didAdjust = true
 			maxImpulse = maxImpulse + step
 
-			servo = new(components.Servo).New(pca, servoId, &components.ServoOptions{
+			servo = new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 				ActuationRange: actuationRange,
 				MinPulse:       minImpulse,
 				MaxPulse:       maxImpulse,

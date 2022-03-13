@@ -27,8 +27,8 @@ type ServoOptions struct {
 }
 
 // ServoNew creates a new servo driver
-func (servo *Servo) New(pca *pca9685.PCA9685, servoChannel int, serverOptions *ServoOptions) *Servo {
-	servo = &Servo{
+func (servo *Servo) Init(pca *pca9685.PCA9685, servoChannel int, serverOptions *ServoOptions) *Servo {
+	*servo = Servo{
 		pca:     pca,
 		channel: servoChannel,
 		options: serverOptions,

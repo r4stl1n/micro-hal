@@ -21,7 +21,7 @@ type I2C struct {
 
 const DEFAULT_I2C_ADDRESS = 0x0703
 
-// New opens a connection for I2C-device.
+// Init opens a connection for I2C-device.
 // SMBus (System Management Bus) protocol over I2C
 // supported as well: you should preliminary specify
 // register address to read from, either write register

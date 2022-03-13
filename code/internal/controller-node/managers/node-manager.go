@@ -1,7 +1,7 @@
 package managers
 
 import (
-	"github.com/r4stl1n/micro-hal/code/internal/body-node/handlers"
+	"github.com/r4stl1n/micro-hal/code/internal/controller-node/handlers"
 	"github.com/r4stl1n/micro-hal/code/pkg/consts"
 	"github.com/r4stl1n/micro-hal/code/pkg/messages"
 	"github.com/r4stl1n/micro-hal/code/pkg/mq"
@@ -37,7 +37,7 @@ func (nodeManager *NodeManager) Process() error {
 	}
 
 	receiveChannel := make(chan *[]byte, 100)
-	_, bindError := nodeManager.nats.EncodedConn.BindRecvChan(consts.MQPoseChannel, receiveChannel)
+	_, bindError := nodeManager.nats.EncodedConn.BindRecvChan(consts.MQPoseSetChannel, receiveChannel)
 	if bindError != nil {
 		return bindError
 	}

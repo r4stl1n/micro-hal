@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/r4stl1n/micro-hal/code/internal/controller-node/managers"
+	"github.com/r4stl1n/micro-hal/code/internal/joints-node/managers"
 	"github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
@@ -34,9 +34,13 @@ func init() {
 func main() {
 	setupCloseHandler()
 
-	serviceManager := new(managers.NodeManager).Init()
+	serviceManager, err := new(managers.JointsManager).Init()
 
-	logrus.Info("controller-node started")
+	if err != nil {
+		logrus.Error(err.Error())
+	}
+
+	logrus.Info("joints node started")
 
 	serviceError := serviceManager.Process()
 

@@ -1,0 +1,102 @@
+{
+  "Name": "legs",
+  "Servos": [
+    {
+      "Alias": "front-left-foot",
+      "PinId": 12,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 0
+    },
+    {
+      "Alias": "front-left-leg",
+      "PinId": 13,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 60
+    },
+    {
+      "Alias": "front-left-shoulder",
+      "PinId": 14,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 90
+    },
+    {
+      "Alias": "front-right-foot",
+      "PinId": 8,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 180
+    },
+    {
+      "Alias": "front-right-leg",
+      "PinId": 9,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 120
+    },
+    {
+      "Alias": "front-right-shoulder",
+      "PinId": 10,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 90
+    },
+    {
+      "Alias": "back-left-foot",
+      "PinId": 0,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 0
+    },
+    {
+      "Alias": "back-left-leg",
+      "PinId": 1,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 60
+    },
+    {
+      "Alias": "back-left-shoulder",
+      "PinId": 2,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 90
+    },
+    {
+      "Alias": "back-right-foot",
+      "PinId": 4,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 180
+    },
+    {
+      "Alias": "back-right-leg",
+      "PinId": 5,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 120
+    },
+    {
+      "Alias": "back-left-shoulder",
+      "PinId": 6,
+      "ActuationRange": 270,
+      "MinPulse": 420,
+      "MaxPulse": 2500,
+      "DefaultPosition": 90
+    }
+  ]
+}
+

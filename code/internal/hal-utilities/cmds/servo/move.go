@@ -91,7 +91,7 @@ func (cmd *Move) Run(_ *cobra.Command, args []string) {
 	}
 
 	// Create a new servo component
-	servo := new(components.Servo).New(pca, servoId, &components.ServoOptions{
+	servo := new(components.Servo).Init(pca, servoId, &components.ServoOptions{
 		ActuationRange: actuationRange,
 		MinPulse:       minImpulse,
 		MaxPulse:       maxImpulse,
