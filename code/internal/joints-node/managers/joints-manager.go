@@ -43,8 +43,8 @@ func (jointsManager *JointsManager) Init() (*JointsManager, error) {
 
 func (jointsManager *JointsManager) connectI2C() error {
 	// We create a connection to the i2c interface on the raspberry pi
-	logrus.Infof("Attempting to connect to the i2c address: /dev/i2c-5")
-	i2c, err := new(base.I2C).Init(drivers.DefaultPCA9685Address, "/dev/i2c-5", base.DEFAULT_I2C_ADDRESS)
+	logrus.Infof("Attempting to connect to the i2c address: /dev/i2c-1")
+	i2c, err := new(base.I2C).Init(drivers.DefaultPCA9685Address, "/dev/i2c-1", base.DEFAULT_I2C_ADDRESS)
 	if err != nil {
 		return err
 	}
@@ -104,6 +104,7 @@ func (jointsManager *JointsManager) HandleJointsMessage(joints *messages.Joints)
 func (jointsManager *JointsManager) Process() error {
 
 	connectToNatsError := jointsManager.connectToNats()
+
 	if connectToNatsError != nil {
 		return connectToNatsError
 	}
