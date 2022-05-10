@@ -8,39 +8,19 @@ Each project that pieces are taken from will be documented in this README so any
 
 All current code samples, models, and rewrites used for this project will be posted within this repo.
 
-Note: This is a in-progress working spot micro bot written in GO
-
-## Project Structure
-
-Due to the amount of different data involved the project will be stored in various directories. This goes as follows:
-
-```bash
-micro-hal
-├── code                       - Code repository for working with micro hal
-│   ├── cmd                    - Micro hal Applications
-│   │    └── hal-utilities     - Utility Application
-│   │
-├── parts                      - Parts Necessary
-│    └── 3d-prints             
-│       ├── freecad            - Original Free Cad Files
-│       └── stl                - 3d Printable STL Files
-│           └── templates      - Template STLS to modify for different hardware
-│
-└── sim                        - Sim folder containing everything required to run in gazebo
-    ├── meshes                 
-    │   └── stl                - STL files used to render the bot in gazebo
-    ├── plugin                 - Gazebo plugin source directory
-    │   └── include
-    ├── urdf                   - The urdf and xacro file for the micro-hal bot
-    └── world                  - Folder containing the world defenition file for gazebo
+This is a ROS-Noetic implementation
 
 
-```
+
+This project is a combination of various other projects with changes that are made to each of them in order to get it working.
+These changes have been documented in the [changes.md](changes.md) file.
+
 
 ## Reference && Community
+
+N/A (jpereirajr) - Spot-Micro runtime for noetic: https://github.com/jpereirajr/spotMicro
 
 Deok-Yeon Kim (KDY0523) - Original design of the sport micro: https://www.thingiverse.com/thing:3445283
 
 Michael Kubina (michaelkubina) - Easy print redesign of the spot micro: https://github.com/michaelkubina/SpotMicroESP32/
 
-CHVMP - Original quad kinematics and node code - https://github.com/chvmp/champ
