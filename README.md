@@ -1,5 +1,9 @@
 # Micro Hal - Spot Micro bot Variation
 
+Notice: The current GO rewrite is paused while we iron out the hardware and electornic selection and support.
+For the time being ros-noetic will be used. Please check the ros-rework branch.
+
+
 This take on the spot-micro attempts to pull pieces together from various different spot projects into one complete package.
 
 The goal of this project is to not only pull the best pieces from the various spot projects but also to have a single repo that contains everything you need to get up and running smoothly.
