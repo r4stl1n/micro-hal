@@ -217,4 +217,10 @@ _deps
 
 cmake-build-debug/
 
-code/builds/*
+code/builds/*v
+code/build
+code/build/*
+code/devel
+code/devel/*
+code/logs/*
+code/log
