@@ -26,10 +26,10 @@ RF_1: {num: 3,  center: 370,range: 220,direction: -1, center_angle_deg:    0.0}
 RB_3: {num: 4,  center: 370,range: 238,direction:  1, center_angle_deg:    173}
 RB_2: {num: 5,  center: 370,range: 210,direction:  -1, center_angle_deg: -117.3}
 RB_1: {num: 6,  center: 370,range: 220,direction:  1, center_angle_deg:    -45}
-LB_3: {num: 7,  center: 370,range: 210,direction:  -1, center_angle_deg:  -93.9}
+LB_3: {num: 7,  center: 370,range: 210,direction:  1, center_angle_deg:  -93.9}
 LB_2: {num: 8,  center: 370,range: 256,direction: -1, center_angle_deg:   80.3}
 LB_1: {num: 9,  center: 370,range: 220,direction:  -1, center_angle_deg: -101.2}
-LF_3: {num: 10, center: 370,range: 220,direction:  -1, center_angle_deg:  -97.5}
+LF_3: {num: 10, center: 370,range: 220,direction:  1, center_angle_deg:  -97.5}
 LF_2: {num: 11, center: 370,range: 256,direction:  1, center_angle_deg:     90}
 LF_1: {num: 12, center: 370,range: 220,direction:  -1, center_angle_deg:  -52.5}
 
